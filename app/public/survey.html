@@ -126,3 +126,41 @@
             </div>
         </div>
     </div>
+
+    <script type="text/javascript">
+        $("#createUser").on("submit", function (event) {
+
+            event.preventDefault();
+            console.log("clicked submit");
+
+            var answers = document.forms[0];
+            console.log(document.forms)
+            var answersArr = [];
+
+            for (var i = 0; i < answers.length; i++) {
+                if (answers[i].checked) {
+                    answersArr.push(answers[i].value);
+                }
+            }
+
+            console.log(answersArr)
+
+            var newFriend = {
+                name: $("#name").val().trim(),
+                photo: $("#photo").val().trim(),
+                scores: answersArr
+            };
+
+            $.post(window.location.origin + "/api/friends", newFriend, function (data) {
+                console.log(data.name)
+                $("#newFriendMatch").text(data.name);
+                $("#newFriendPhoto").attr("src", data.photo);
+                $("#newFriendMatchModal").modal("toggle");
+            })
+        });
+    </script>
+
+
+</body>
+
+</html>
