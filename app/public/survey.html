@@ -142,6 +142,7 @@
             var answers = document.forms[0];
             console.log(document.forms)
             var answersArr = [];
+           
 
             for (var i = 0; i < answers.length; i++) {
                 if (answers[i].checked) {
@@ -150,19 +151,28 @@
             }
 
             console.log(answersArr)
+            console.log(answersArr.length)
 
-            var newFriend = {
-                name: $("#name").val().trim(),
-                photo: $("#photo").val().trim(),
-                scores: answersArr
-            };
+            if (answersArr.length === 10) {
 
-            $.post(window.location.origin + "/api/friends", newFriend, function (data) {
-                console.log(data.name)
-                $("#newFriendMatch").text(data.name);
-                $("#newFriendPhoto").attr("src", data.photo);
-                $("#newFriendMatchModal").modal("toggle");
-            })
+                var newFriend = {
+                    name: $("#name").val().trim(),
+                    photo: $("#photo").val().trim(),
+                    scores: answersArr
+                };
+
+                $.post(window.location.origin + "/api/friends", newFriend, function (data) {
+                    console.log(data.name)
+                    $("#newFriendMatch").text(data.name);
+                    $("#newFriendPhoto").attr("src", data.photo);
+                    $("#newFriendMatchModal").modal("toggle");
+                })
+
+            } else {
+                alert("Please select a button for each part of the survey.")
+            }
+
+
         });
     </script>
 
